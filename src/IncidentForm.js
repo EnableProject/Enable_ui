@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { submitIncident } from "./services/userService";
+import { submitIncident} from "./services/userService";
 import Navbar from './Navibar.js';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +22,8 @@ const IncidentForm = () => {
     status: "Open",
   });
 
+  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -32,7 +34,7 @@ const IncidentForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     submitIncident(data)
       .then((resp) => {
         console.log(resp);
@@ -46,6 +48,9 @@ const IncidentForm = () => {
         toast.error("Error submitting incident");
       });
   };
+
+ 
+  
   
 
   return (
@@ -83,6 +88,7 @@ const IncidentForm = () => {
                     onChange={handleInputChange}
                   />
                 </Grid>
+                
                 <Grid item xs={12} sm={6}>
                   <TextField
                     variant="outlined"
