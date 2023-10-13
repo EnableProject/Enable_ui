@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Navbar from './Navibar.js';
 import './SupIncident.css';
-import { getIncidents, updateIncidents, getsupport,getnamegeneral} from './services/userService';
+import { getIncidents, updateIncidents, getsupport,  getnamegeneral} from './services/userService';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import 'react-toastify/dist/ReactToastify.css';
-
+import * as XLSX from 'xlsx'; // Import XLSX object
 
 const IncidentTable = () => {
   const [expandedIncidentId, setExpandedIncidentId] = useState(null);
@@ -23,13 +23,18 @@ const IncidentTable = () => {
     
     setSelectedStatus(selectedStatusParam || 'All');
     getIncidents()
-      .then((data) => {
-        // Update the state with the fetched data
-        setIncidents(data);
-      })
-       .catch((error) => {
-        console.error('Error fetching data:', error);
+    .then((data) => {
+      setIncidents(data);
+    
+      // Fetch reporter names for each incident
+      data.forEach((incident) => {
+        fetchReporterName(incident.email); // Call the fetchReporterName function for each incident's email
       });
+    })
+
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
 
     getsupport()
       .then((data) => {
@@ -43,6 +48,8 @@ const IncidentTable = () => {
 
       
     }, []);
+
+   
 
   console.log(staffOptions);
 

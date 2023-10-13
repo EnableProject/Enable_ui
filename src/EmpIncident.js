@@ -17,10 +17,12 @@ const IncidentTable = () => {
   const [resolutionDate, setResolutionDate] = useState('');
   const [userName, setUserName] = useState('');
   const [reporterName, setReporterName] = useState({});
+  
 
   useEffect(() => {
     // Fetch data from the backend when the component mounts
     const email = localStorage.getItem('email');
+
 
     async function fetchData() {
       try {
@@ -138,6 +140,7 @@ const IncidentTable = () => {
 
   return (
     <Container>
+     
       <Typography variant="h4" style={{ textAlign: 'center', marginTop: '1.5em' }}>
         Reported Incidents
       </Typography>
